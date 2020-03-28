@@ -1,6 +1,6 @@
 const options = require('./config')
 const Sequelize = require('sequelize');
 
-const connect = new Sequelize(options.dbUrl);
+const sequelize = new Sequelize(options.dbUrl);
 
-module.exports = connect;
+module.exports = sequelize;
