@@ -71,11 +71,17 @@ return await sequelize.query('INSERT INTO usuarios VALUES(?,?,?,?,?,?,?,?)',
             return id_usuario? true : false;
         })
 }
+
+async function obtenerUsuarios(){
+    return await sequelize.query('SELECT * FROM usuarios',
+ {type: sequelize.QueryTypes.SELECT})
+}
    
 module.exports = {
     login,
     validarUser,
     validarAdmin,
     crearNuevoUsuario,
-    validarInputUsuario
+    validarInputUsuario,
+    obtenerUsuarios
 } 

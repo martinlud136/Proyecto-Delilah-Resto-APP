@@ -17,21 +17,6 @@ server.listen(3000, (req, res) => {
 server.use(cors());
 server.use(bodyParser.json());
 
-// login
-server.post('/login', async(req,res)=>{
-  const {email, contrasena} = req.body
-  try{
-      const respuesta = await usuarios.login(email,contrasena)
-      if(respuesta[0] !== undefined){
-        let token = jwt.sign({ user: respuesta[0].usuario, es_admin: respuesta[0].es_admin}, sign);
-        return res.status(200).json({token: token})
-      }else{
-        res.status(401).json({msj: 'Email o contraseña incorrectos'})
-      }
-  }catch(e){
-      res.status(500).json({msj: 'Error del servidor'}).end()
-  }
-})
 
 // Endpoints PRODUCTOS
 // Crear un Producto
@@ -129,4 +114,31 @@ server.post('/usuarios',async(req,res)=>{
   }else{
     res.status(400).json({msj: 'Error al ingresar los datos de usuario'})
   }
+})
+
+// login
+server.post('/login', async(req,res)=>{
+  const {email, contrasena} = req.body
+  try{
+      const respuesta = await usuarios.login(email,contrasena)
+      if(respuesta[0] !== undefined){
+        let token = jwt.sign({ user: respuesta[0].usuario, es_admin: respuesta[0].es_admin}, sign);
+        return res.status(200).json({token: token})
+      }else{
+        res.status(401).json({msj: 'Email o contraseña incorrectos'})
+      }
+  }catch(e){
+      res.status(500).json({msj: 'Error del servidor'}).end()
+  }
+})
+
+server.get('/usuarios',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const listadoUsuarios = await usuarios.obtenerUsuarios();
+    if(listadoUsuarios !== undefined){
+      return res.status(200).json(listadoUsuarios)
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
 })
