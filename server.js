@@ -93,3 +93,18 @@ server.put('/productos/:id_producto',usuarios.validarAdmin, async(req,res)=>{
     res.status(500).json({msj: 'Error del servidor'}).end()
   } 
 })
+
+// Eliminar un producto
+server.delete('/productos/:id_producto',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const {id_producto} = req.params
+    const productoSelec = await productos.eliminarProductoPorId(id_producto);
+    if(productoSelec.length > 0){
+      return res.status(200).json({msj: 'Producto eliminado con exito'})
+    }else{
+      res.status(404).json({msj: 'Producto inexistente'})
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})
