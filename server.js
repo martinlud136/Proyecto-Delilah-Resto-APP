@@ -62,11 +62,28 @@ server.get('/productos',usuarios.validarUser, async(req,res)=>{
     res.status(500).json({msj: 'Error del servidor'}).end()
   } 
 })
+
 // Obtener producto por su id
 server.get('/productos/:id_producto',usuarios.validarUser, async(req,res)=>{
   try{
     const {id_producto} = req.params
     const productoSelec = await productos.obtenerProductoPorId(id_producto);
+    if(productoSelec.length > 0){
+      return res.status(200).json(productoSelec)
+    }else{
+      res.status(404).json({msj: 'Producto inexistente'})
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})
+
+// Actualizar los datos de un producto
+server.put('/productos/:id_producto',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const {id_producto} = req.params
+    const {nombre, img, precio} = req.body
+    const productoSelec = await productos.actualizarProductoPorId(id_producto,nombre,img,precio);
     if(productoSelec.length > 0){
       return res.status(200).json(productoSelec)
     }else{
