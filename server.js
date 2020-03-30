@@ -33,10 +33,6 @@ server.post('/login', async(req,res)=>{
   }
 })
 
-server.get('/productos',usuarios.validarUser,(req,res)=>{
-  res.json(req.usuario)
-})
-
 // Endpoints PRODUCTOS
 // Crear un Producto
 server.post('/productos',usuarios.validarAdmin,async(req,res)=>{
@@ -51,4 +47,19 @@ server.post('/productos',usuarios.validarAdmin,async(req,res)=>{
   }catch(e){
       res.status(500).json({msj: 'Error del servidor'}).end()
   }
+})
+
+// Obtener listado de productos
+server.get('/productos',usuarios.validarUser, async(req,res)=>{
+  try{
+    const listadoProductos = await productos.obtenerProductos();
+    if(listadoProductos !== undefined){
+      return res.status(200).json(listadoProductos)
+    }else{
+      res.status(400).json({msj: 'Error al ingresar los datos'})
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+  
 })

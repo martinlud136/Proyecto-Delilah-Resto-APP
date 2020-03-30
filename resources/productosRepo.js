@@ -10,14 +10,13 @@ async function crearProducto(nombre,img,precio){
             })
 }
 
-async function getOne(id){
-    return await sequelize.query('SELECT * FROM clientes WHERE id= ?',
- {replacements: [id], type: sequelize.QueryTypes.SELECT
- })
+async function obtenerProductos(){
+    return await sequelize.query('SELECT * FROM productos',
+ {type: sequelize.QueryTypes.SELECT})
  }
 
    
 module.exports = {
     crearProducto,
-    getOne
+    obtenerProductos
 } 
