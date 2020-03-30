@@ -108,3 +108,25 @@ server.delete('/productos/:id_producto',usuarios.validarAdmin, async(req,res)=>{
     res.status(500).json({msj: 'Error del servidor'}).end()
   } 
 })
+
+// ENDPOINTS USUARIOS
+//Crear un nuevo usuario
+server.post('/usuarios',async(req,res)=>{
+  const{usuario,nombreApellido,email,direccion,telefono,contrasena} = req.body
+  let validacion = usuarios.validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena)
+  if(validacion){
+    try{
+      const nuevoUsuario = await usuarios.crearNuevoUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena);
+      if(nuevoUsuario){
+        console.log('tengo usuario creado todo ok')
+        return res.status(200).json({msj: 'Usuario creado con exito'})
+      }else{
+        res.status(400).json({msj: 'Error al ingresar los datos'})
+      }
+    }catch(e){
+        res.status(500).json({msj: 'Error del servidor'}).end()
+    }
+  }else{
+    res.status(400).json({msj: 'Error al ingresar los datos de usuario'})
+  }
+})

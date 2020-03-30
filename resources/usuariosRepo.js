@@ -1,6 +1,6 @@
 const sequelize = require('../dbConfig/db');
 const jwt = require('jsonwebtoken');
-const config = require('../dbConfig/config')
+const config = require('../dbConfig/config');
 const sign = config.sign
 
 const validarUser = (req,res,next)=> {
@@ -42,9 +42,40 @@ async function login(email,contrasena){
  })
  }
 
+ function validarEmail(email){
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+        return true
+    }return false
+}
+
+function validarTel(telefono){
+    if(/^\d{10}$/.test(telefono)){
+        console.log('entra true')
+        return true;
+        }console.log('entra false') 
+        return false;
+}
+
+function validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena){
+    console.log('validando')
+    if(usuario && nombreApellido && email && validarEmail(email) && direccion && telefono && validarTel(telefono) && contrasena){
+        return true
+    } return false
+}
+
+async function crearNuevoUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena){
+return await sequelize.query('INSERT INTO usuarios VALUES(?,?,?,?,?,?,?,?)',
+        {replacements: ['NULL',usuario,nombreApellido,email,direccion,telefono,"false", contrasena]})
+        .then(usuario=>{
+            let id_usuario = usuario[0];
+            return id_usuario? true : false;
+        })
+}
    
 module.exports = {
     login,
     validarUser,
-    validarAdmin
+    validarAdmin,
+    crearNuevoUsuario,
+    validarInputUsuario
 } 
