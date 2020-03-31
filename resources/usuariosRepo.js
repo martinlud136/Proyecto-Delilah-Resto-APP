@@ -64,17 +64,27 @@ function validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,con
 }
 
 async function crearNuevoUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena){
-return await sequelize.query('INSERT INTO usuarios VALUES(?,?,?,?,?,?,?,?)',
+    return await sequelize.query('INSERT INTO usuarios VALUES(?,?,?,?,?,?,?,?)',
         {replacements: ['NULL',usuario,nombreApellido,email,direccion,telefono,"false", contrasena]})
         .then(usuario=>{
             let id_usuario = usuario[0];
             return id_usuario? true : false;
         })
 }
-
+// Obtener pedidos de un usuario
+async function obtenerPedidosDeUsuario(id_usuario){
+    return await sequelize.query('SELECT pedidos.id_pedido FROM pedidos WHERE id_usuario = ?',
+        {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
+}
+//falta obtener pedidos
 async function obtenerUsuarios(){
     return await sequelize.query('SELECT * FROM usuarios',
- {type: sequelize.QueryTypes.SELECT})
+        {type: sequelize.QueryTypes.SELECT})
+}
+//falta obtener pedido
+async function obtenerUsuarioPorId(id_usuario){
+    return await sequelize.query('SELECT * FROM usuarios WHERE id_usuario = ?',
+        {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
 }
    
 module.exports = {
@@ -83,5 +93,7 @@ module.exports = {
     validarAdmin,
     crearNuevoUsuario,
     validarInputUsuario,
-    obtenerUsuarios
+    obtenerPedidosDeUsuario,
+    obtenerUsuarios,
+    obtenerUsuarioPorId
 } 

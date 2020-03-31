@@ -135,8 +135,49 @@ server.post('/login', async(req,res)=>{
 server.get('/usuarios',usuarios.validarAdmin, async(req,res)=>{
   try{
     const listadoUsuarios = await usuarios.obtenerUsuarios();
-    if(listadoUsuarios !== undefined){
-      return res.status(200).json(listadoUsuarios)
+    let listUsuConPedidos = await Promise.all(
+      listadoUsuarios.map(async fila=>{
+        let id_usuario = fila.id_usuario
+        const pedidosDeUsuario = await usuarios.obtenerPedidosDeUsuario(id_usuario)
+        let pedidoInt = [];
+        if(pedidosDeUsuario.length>0){
+            for(let i of pedidosDeUsuario){
+              pedidoInt.push(i.id_pedido)
+            }
+        }
+        fila.pedidos = pedidoInt
+        return fila
+      })
+    )
+    if(listUsuConPedidos !== undefined){
+      return res.status(200).json(listUsuConPedidos)
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})
+
+server.get('/usuarios/:id_usuario',usuarios.validarUser, async(req,res)=>{
+  try{
+    const {id_usuario} = req.params
+    const usuarioSelec = await usuarios.obtenerUsuarioPorId(id_usuario);
+    let usuarioConPedidos = await Promise.all(
+      usuarioSelec.map(async fila=>{
+        const pedidosDeUsuario = await usuarios.obtenerPedidosDeUsuario(id_usuario)
+        let pedidoInt = [];
+        if(pedidosDeUsuario.length>0){
+            for(let i of pedidosDeUsuario){
+              pedidoInt.push(i.id_pedido)
+            }
+        }
+        fila.pedidos = pedidoInt
+        return fila
+      })
+    )
+    if(usuarioConPedidos.length > 0){
+      return res.status(200).json(usuarioConPedidos)
+    }else{
+      res.status(404).json({msj: 'Usuario inexistente'})
     }
   }catch(e){
     res.status(500).json({msj: 'Error del servidor'}).end()

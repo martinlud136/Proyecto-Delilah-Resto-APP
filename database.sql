@@ -77,3 +77,5 @@ INSERT INTO estado VALUES("NULL", "preparando");
 INSERT INTO estado VALUES("NULL", "enviado");
 INSERT INTO estado VALUES("NULL", "entregado");
 INSERT INTO estado VALUES("NULL", "cancelado");
+
+INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-03-13", 400);
