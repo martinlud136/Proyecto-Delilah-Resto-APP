@@ -8,7 +8,7 @@ CREATE TABLE usuarios (
   nombreApellido VARCHAR(100) NOT NULL,
   email VARCHAR(100),
   direccion VARCHAR(100),
-  telefono INT UNSIGNED,
+  telefono INT(10) UNSIGNED NOT NULL,
   es_admin VARCHAR(10) NOT NULL,
   contrasena VARCHAR(10) NOT NULL
 );
@@ -59,14 +59,14 @@ INSERT INTO productos VALUES("NULL" ,'Empanada de carne', 'https://dam.cocinafac
 INSERT INTO productos VALUES("NULL" ,'Milanesa con papas fritas', 'https://vinomanos.com/wp-content/uploads/2019/02/milanesas-receta.jpg', 300);
 INSERT INTO productos VALUES("NULL" ,'Rabas', 'https://lh3.googleusercontent.com/proxy/2FkENo8pd_jQ0dobIVjcVSwiUcNJS6AeMEgUS1EOow0aaZSAAewyLvYAFjHOnX74uHHHftPoaUhb38V8bERx4ua-7GsRpOvyhSaO8irYLNUgZadW', 150);
 
-INSERT INTO usuarios VALUES("NULL", 'Daniel334', 'Daniel Sáez', 'daniel@1.com', 'cabildo 332', 153748362, "true", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Juan_g', 'Juan Gómez', 'juan@2.com', 'libertador 1200', 159362536, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Diego22','Diego Flores', 'diego@3.com', 'calle 4 n°453', 159384623, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Marta_he4 ','Marta Herrera', 'marta@4.com', 'mendoza 800', 152237453, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'AntonioCarr','Antonio Carretero', 'antonio@5.com', 'neuquen 5726', 159984635, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'ManuelDom','Manuel Dodmínguez', 'manuel@6.com', 'pasaje 2 332', 153349264, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'AntonioVeg','Antonio Vega', 'antonio@7.com', 'caseros 500', 158555434, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Alfredo876','Alfredo Ruiz', 'alfredo@8.com', 'san martin 778', 153324374, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'Daniel334', 'Daniel Sáez', 'daniel@1.com', 'cabildo 332', 1537484362, "true", "1234");
+INSERT INTO usuarios VALUES("NULL", 'Juan_g', 'Juan Gómez', 'juan@2.com', 'libertador 1200', 1593625356, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'Diego22','Diego Flores', 'diego@3.com', 'calle 4 n°453', 1593845623, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'Marta_he4 ','Marta Herrera', 'marta@4.com', 'mendoza 800', 1522374353, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'AntonioCarr','Antonio Carretero', 'antonio@5.com', 'neuquen 5726', 1599844635, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'ManuelDom','Manuel Dodmínguez', 'manuel@6.com', 'pasaje 2 332', 1533494264, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'AntonioVeg','Antonio Vega', 'antonio@7.com', 'caseros 500', 1585554434, "false", "1234");
+INSERT INTO usuarios VALUES("NULL", 'Alfredo876','Alfredo Ruiz', 'alfredo@8.com', 'san martin 778', 1533424374, "false", "1234");
 
 INSERT INTO formaPago VALUES("NULL", "efectivo");
 INSERT INTO formaPago VALUES("NULL", "credito");
@@ -79,3 +79,7 @@ INSERT INTO estado VALUES("NULL", "entregado");
 INSERT INTO estado VALUES("NULL", "cancelado");
 
 INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-03-13", 400);
+INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-05-15", 234);
+INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-02-15", 700);
+INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-06-23", 270);
+INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-07-05", 150);

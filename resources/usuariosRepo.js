@@ -34,8 +34,6 @@ const validarAdmin = (req,res,next)=> {
     }
 }
 
-
-
 async function login(email,contrasena){
     return await sequelize.query(`SELECT usuario, es_admin FROM usuarios WHERE email = ? AND contrasena = ?`,
  {replacements: [email,contrasena], type: sequelize.QueryTypes.SELECT
@@ -50,9 +48,8 @@ async function login(email,contrasena){
 
 function validarTel(telefono){
     if(/^\d{10}$/.test(telefono)){
-        console.log('entra true')
         return true;
-        }console.log('entra false') 
+        } 
         return false;
 }
 
@@ -71,20 +68,36 @@ async function crearNuevoUsuario(usuario,nombreApellido,email,direccion,telefono
             return id_usuario? true : false;
         })
 }
-// Obtener pedidos de un usuario
+
 async function obtenerPedidosDeUsuario(id_usuario){
     return await sequelize.query('SELECT pedidos.id_pedido FROM pedidos WHERE id_usuario = ?',
         {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
 }
-//falta obtener pedidos
+
 async function obtenerUsuarios(){
     return await sequelize.query('SELECT * FROM usuarios',
         {type: sequelize.QueryTypes.SELECT})
 }
-//falta obtener pedido
+
 async function obtenerUsuarioPorId(id_usuario){
     return await sequelize.query('SELECT * FROM usuarios WHERE id_usuario = ?',
         {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
+}
+
+async function actualizarUsuario(id_usuario,usuario,nombreApellido,email,direccion,telefono,contrasena){
+    return await sequelize.query(`UPDATE usuarios SET 
+                id_usuario = ${id_usuario},
+                usuario = "${usuario}",
+                nombreApellido = "${nombreApellido}",
+                email = "${email}",
+                direccion= "${direccion}",
+                telefono = ${telefono},
+                contrasena = "${contrasena}" WHERE usuarios.id_usuario = ?`,
+        {replacements: [id_usuario]})
+        .then(async usuario=>{
+            return await  sequelize.query('SELECT * FROM usuarios WHERE id_usuario = ?',
+                    {replacements: [Number(id_usuario)], type: sequelize.QueryTypes.SELECT})
+        })
 }
    
 module.exports = {
@@ -95,5 +108,6 @@ module.exports = {
     validarInputUsuario,
     obtenerPedidosDeUsuario,
     obtenerUsuarios,
-    obtenerUsuarioPorId
+    obtenerUsuarioPorId,
+    actualizarUsuario
 } 
