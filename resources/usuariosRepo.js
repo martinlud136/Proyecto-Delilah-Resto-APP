@@ -94,10 +94,48 @@ async function actualizarUsuario(id_usuario,usuario,nombreApellido,email,direcci
                 telefono = ${telefono},
                 contrasena = "${contrasena}" WHERE usuarios.id_usuario = ?`,
         {replacements: [id_usuario]})
-        .then(async usuario=>{
-            return await  sequelize.query('SELECT * FROM usuarios WHERE id_usuario = ?',
-                    {replacements: [Number(id_usuario)], type: sequelize.QueryTypes.SELECT})
+        .then(async respuesta=>{
+             return await sequelize.query('SELECT * FROM usuarios WHERE id_usuario = ?',
+                {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
         })
+        .then( async usuarioActualizado=>{
+            console.log('usuario actualizado',usuarioActualizado)
+            const usuarioConPedidos = Promise.all(
+                usuarioActualizado.map(async fila=>{
+                  const pedidosDeUsuario = obtenerPedidosDeUsuario(id_usuario)
+                  let pedidoInt = [];
+                  if(pedidosDeUsuario.length>0){
+                      for(let i of pedidosDeUsuario){
+                        pedidoInt.push(i.id_pedido)
+                      }
+                  }
+                  fila.pedidos = pedidoInt
+                  return fila
+                })
+              )
+              return await usuarioConPedidos
+        })
+}
+
+async function obtUsuarioConPedidos(id_usuario){
+    return await obtenerUsuarioPorId(id_usuario)
+                .then(async usuario=>{
+                    const usuarioConPedidos = await Promise.all(
+                        usuario.map(async fila=>{
+                          const pedidosDeUsuario = await obtenerPedidosDeUsuario(id_usuario)
+                          console.log('pedidos de usuario',pedidosDeUsuario)
+                          let pedidoInt = [];
+                          if(pedidosDeUsuario.length>0){
+                              for(let i of pedidosDeUsuario){
+                                pedidoInt.push(i.id_pedido)
+                              }
+                          }
+                          fila.pedidos = pedidoInt
+                          return fila
+                        })
+                      )
+                      return await usuarioConPedidos
+                })
 }
    
 module.exports = {
@@ -109,5 +147,6 @@ module.exports = {
     obtenerPedidosDeUsuario,
     obtenerUsuarios,
     obtenerUsuarioPorId,
-    actualizarUsuario
+    actualizarUsuario,
+    obtUsuarioConPedidos
 } 

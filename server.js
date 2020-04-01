@@ -163,25 +163,11 @@ server.get('/usuarios/:id_usuario',usuarios.validarUser, async(req,res)=>{
     const {id_usuario} = req.params
     const {user,es_admin} = req.usuario
     const usuarioSelec = await usuarios.obtenerUsuarioPorId(id_usuario);
-    if(usuarioSelec[0].usuario === user || "true" === es_admin){
-      let usuarioConPedidos = await Promise.all(
-        usuarioSelec.map(async fila=>{
-          const pedidosDeUsuario = await usuarios.obtenerPedidosDeUsuario(id_usuario)
-          let pedidoInt = [];
-          if(pedidosDeUsuario.length>0){
-              for(let i of pedidosDeUsuario){
-                pedidoInt.push(i.id_pedido)
-              }
-          }
-          fila.pedidos = pedidoInt
-          return fila
-        })
-      )
-      if(usuarioConPedidos.length > 0){
-        return res.status(200).json(usuarioConPedidos)
-      }else{
-        res.status(404).json({msj: 'Usuario inexistente'})
-      }
+    if(usuarioSelec[0] === undefined){
+      res.status(404).json({msj: 'Usuario inexistente'})
+    }else if(usuarioSelec[0].usuario === user || "true" === es_admin){
+      let usuarioConPedidos = await usuarios.obtUsuarioConPedidos(id_usuario)
+         res.status(200).json(usuarioConPedidos)
     }else{
       res.status(401).json({msj: 'Usuario no autorizado'})
     }
@@ -196,44 +182,26 @@ server.put('/usuarios/:id_usuario',usuarios.validarUser, async(req,res)=>{
   //Verificacion de usuario
   const {user} = req.usuario
   const usuarioSelec = await usuarios.obtenerUsuarioPorId(id_usuario);
-  console.log(usuarioSelec[0].usuario === user)
-  if(usuarioSelec[0].usuario !== user){
+  if(usuarioSelec[0] === undefined){
+    res.status(401).json({msj: 'Usuario inexistente'}).end()
+  }else if(usuarioSelec[0].usuario !== user){
     res.status(401).json({msj: 'Usuario no autorizado'}).end()
-  }else{
+  }else {
     const{usuario,nombreApellido,email,direccion,telefono,contrasena} = req.body;
     let validacion = usuarios.validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena)
     //Obteniendo los datos para la modificacion
-  if(validacion){
-    try{
-      const usuarioActualizado = await usuarios.actualizarUsuario(id_usuario,usuario,nombreApellido,email,direccion,telefono,contrasena);
-      console.log(usuarioActualizado)
-      if(usuarioActualizado){
-        let usuarioConPedidos = await Promise.all(
-          usuarioActualizado.map(async fila=>{
-            const pedidosDeUsuario = await usuarios.obtenerPedidosDeUsuario(id_usuario)
-            let pedidoInt = [];
-            if(pedidosDeUsuario.length>0){
-                for(let i of pedidosDeUsuario){
-                  pedidoInt.push(i.id_pedido)
-                }
-            }
-            fila.pedidos = pedidoInt
-            return fila
-          })
-        )
-        if(usuarioConPedidos.length > 0){
-          return res.status(200).json(usuarioConPedidos)
-        }else{
-          res.status(404).json({msj: 'Usuario inexistente'})
-        }
+      if(validacion){
+          try{
+            const usuarioActualizado = await usuarios.actualizarUsuario(id_usuario,usuario,nombreApellido,email,direccion,telefono,contrasena);
+            console.log('esto viene actualizado', usuarioActualizado)
+            res.status(200).json(usuarioActualizado[0])
+          }catch(e){
+              res.status(500).json({msj: 'Error del servidor'}).end()
+          }
       }else{
-        res.status(400).json({msj: 'Error al ingresar los datos'})
+          res.status(400).json({msj: 'Error al ingresar los datos de usuario'})
       }
-    }catch(e){
-        res.status(500).json({msj: 'Error del servidor'}).end()
-    }
-  }else{
-    res.status(400).json({msj: 'Error al ingresar los datos de usuario'})
-  }
   }
 })
+
+// Eliminar un Usuario
