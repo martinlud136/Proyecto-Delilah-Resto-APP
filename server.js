@@ -205,3 +205,16 @@ server.put('/usuarios/:id_usuario',usuarios.validarUser, async(req,res)=>{
 })
 
 // Eliminar un Usuario
+server.delete('/usuarios/:id_usuario',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const {id_usuario} = req.params
+    const usuarioSelec = await usuarios.eliminarUsuario(id_usuario);
+    if(usuarioSelec[0].affectedRows === 1){
+      return res.status(200).json({msj: 'Usuario eliminado con exito'})
+    }else{
+      res.status(404).json({msj: 'Usuario inexistente'})
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})

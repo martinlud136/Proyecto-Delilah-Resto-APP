@@ -137,6 +137,11 @@ async function obtUsuarioConPedidos(id_usuario){
                       return await usuarioConPedidos
                 })
 }
+
+async function eliminarUsuario(id_usuario){
+    return await sequelize.query('DELETE FROM usuarios WHERE id_usuario = ?',
+        {replacements: [id_usuario]})
+}
    
 module.exports = {
     login,
@@ -148,5 +153,6 @@ module.exports = {
     obtenerUsuarios,
     obtenerUsuarioPorId,
     actualizarUsuario,
-    obtUsuarioConPedidos
+    obtUsuarioConPedidos,
+    eliminarUsuario
 } 
