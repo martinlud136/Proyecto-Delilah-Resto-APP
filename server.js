@@ -248,3 +248,17 @@ server.post('/pedidos',usuarios.validarUser,async(req,res)=>{
       res.status(500).json({msj: 'Error del servidor'}).end()
   }
 })
+
+// Obtener todos los pedidos
+server.get('/pedidos',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const pedidosSinProd = await pedidos.obtenerPedidosSinProd();
+    for(let i = 0 ; i<pedidosSinProd[0].length ; i++){
+      const productosDePedido = await pedidos.selecionarProductosdePedido(pedidosSinProd[0][i].id_pedido)
+      pedidosSinProd[0][i].productos = productosDePedido[0]
+    }
+      return res.status(200).json(pedidosSinProd[0])
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})
