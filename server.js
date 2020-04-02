@@ -9,6 +9,7 @@ const sign = config.sign;
 // Recursos
 const usuarios = require('./resources/usuariosRepo')
 const productos = require('./resources/productosRepo')
+const pedidos = require('./resources/pedidosRepo')
 
 server.listen(3000, (req, res) => {
   console.log(`servidor iniciado en puerto ${config.port}`);
@@ -121,7 +122,7 @@ server.post('/login', async(req,res)=>{
   try{
       const respuesta = await usuarios.login(email,contrasena)
       if(respuesta[0] !== undefined){
-        let token = jwt.sign({ user: respuesta[0].usuario, es_admin: respuesta[0].es_admin}, sign);
+        let token = jwt.sign({ user: respuesta[0].usuario, es_admin: respuesta[0].es_admin, id_usuario:respuesta[0].id_usuario}, sign);
         return res.status(200).json({token: token})
       }else{
         res.status(401).json({msj: 'Email o contraseña incorrectos'})
@@ -217,4 +218,33 @@ server.delete('/usuarios/:id_usuario',usuarios.validarAdmin, async(req,res)=>{
   }catch(e){
     res.status(500).json({msj: 'Error del servidor'}).end()
   } 
+})
+
+// ENDPOINTS PEDIDOS
+// Crear un pedido
+server.post('/pedidos',usuarios.validarUser,async(req,res)=>{
+  const{formaDePago, productos} = req.body
+  const {id_usuario} = req.usuario
+  try{
+    let productosArr= [];
+    productos.forEach(e=> productosArr.push([e.id_producto, e.cantidad]))
+    const total = await Promise.all(
+        productosArr.map(async productoCantidadArr=>{
+         let totalProducto = await pedidos.calcularTotalPorProducto(productoCantidadArr)
+          return totalProducto
+        })          
+    )
+    let totalPedido = total.reduce((a,b) => a + b, 0)
+    let pedido = await pedidos.crearPedido(formaDePago,productos,id_usuario,totalPedido);
+    let productosDetalle = await pedidos.selecionarProductosdePedido(pedido[0][0].id_pedido)
+    pedido[0][0].productos = productosDetalle[0]
+    let pedidoConDetalle = pedido[0][0]
+    if(pedidoConDetalle !== undefined){
+      return res.status(200).json(pedidoConDetalle)
+    }else{
+      res.status(400).json({msj: 'Error al ingresar los datos'})
+    }
+  }catch(e){
+      res.status(500).json({msj: 'Error del servidor'}).end()
+  }
 })

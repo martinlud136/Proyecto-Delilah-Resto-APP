@@ -84,7 +84,8 @@ paths:
         - Usuarios
       summary: Actualizar los datos de un usuario
       security: 
-        - middelware_autorizacion: []
+        - autenticacion: []
+      description: Usuario logueado solo puede modificar los datos de su cuenta
       parameters: 
         - $ref: '#/components/parameters/id_usuario'
       requestBody:
@@ -503,9 +504,6 @@ components:
     realizarPedido:
       type: object
       properties:
-        usuario:
-          type: string
-          example: "martin_334"
         formaDePago:
               type: string
               enum:

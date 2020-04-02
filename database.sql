@@ -22,12 +22,12 @@ CREATE TABLE productos (
 
 CREATE TABLE formaPago (
   id_formaPago INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  formaPago VARCHAR(100)
+  formaPago ENUM("efectivo", "credito") NOT NULL
 );
 
 CREATE TABLE estado (
   id_estado INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  estado VARCHAR(100)
+  estado ENUM("nuevo", "confirmado", "preparando", "enviado", "entregado", "cancelado") NOT NULL
 );
 
 CREATE TABLE pedidos (
@@ -35,7 +35,7 @@ CREATE TABLE pedidos (
   id_usuario INT UNSIGNED NOT NULL,
   id_estado INT UNSIGNED NOT NULL,
   id_formaPago INT UNSIGNED NOT NULL,
-  fecha DATE,
+  fecha DATETIME,
   total INT NOT NULL,
   FOREIGN KEY (id_usuario) REFERENCES usuarios (id_usuario),
   FOREIGN KEY (id_estado) REFERENCES estado (id_estado),
@@ -46,7 +46,6 @@ CREATE TABLE pedidos_productos (
   id_pedido INT UNSIGNED NOT NULL,
   id_producto INT UNSIGNED NOT NULL,
   cantidad INT UNSIGNED NOT NULL,
-  precio FLOAT NOT NULL,
   FOREIGN KEY (id_pedido) REFERENCES pedidos (id_pedido),
   FOREIGN KEY (id_producto) REFERENCES productos (id_producto)
 );
@@ -83,3 +82,9 @@ INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-05-15", 234);
 INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-02-15", 700);
 INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-06-23", 270);
 INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-07-05", 150);
+
+INSERT INTO pedidos_productos VALUES(1, 7, 1);
+INSERT INTO pedidos_productos VALUES(2, 3, 5);
+INSERT INTO pedidos_productos VALUES(3, 2, 2);
+INSERT INTO pedidos_productos VALUES(4, 4, 3);
+INSERT INTO pedidos_productos VALUES(5, 1, 1);

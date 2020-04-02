@@ -35,7 +35,7 @@ const validarAdmin = (req,res,next)=> {
 }
 
 async function login(email,contrasena){
-    return await sequelize.query(`SELECT usuario, es_admin FROM usuarios WHERE email = ? AND contrasena = ?`,
+    return await sequelize.query(`SELECT usuario, es_admin, id_usuario FROM usuarios WHERE email = ? AND contrasena = ?`,
  {replacements: [email,contrasena], type: sequelize.QueryTypes.SELECT
  })
  }
