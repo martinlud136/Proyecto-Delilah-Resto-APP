@@ -49,7 +49,7 @@ async function crearPedido(formaDePago,productos,id_usuario,totalPedido){
     ;
 }
 
-async function selecionarProductosdePedido(id_pedido){
+async function obteberProductosDePedido(id_pedido){
     return await sequelize.authenticate().then(async()=>{
         const query = `SELECT productos.*, pedidos_productos.cantidad FROM pedidos_productos
         JOIN productos ON pedidos_productos.id_producto = productos.id_producto
@@ -70,9 +70,23 @@ async function obtenerPedidosSinProd(){
     })
 }
 
+async function obtenerPedidoPorId(id_pedido){
+    return await sequelize.authenticate().then(async()=>{
+        const query = `SELECT pedidos.id_pedido,  estado.estado, pedidos.fecha, 
+            formapago.formaPago AS formaDePago,
+            pedidos.total, pedidos.id_usuario 
+            FROM pedidos
+            JOIN estado ON estado.id_estado = pedidos.id_estado
+            JOIN formapago ON formapago.id_formaPago = pedidos.id_formaPago
+            WHERE id_pedido = ${id_pedido}`;
+       return await sequelize.query(query, {raw : true});
+    })
+}
+
 module.exports = {
     crearPedido,
     calcularTotalPorProducto,
-    selecionarProductosdePedido,
-    obtenerPedidosSinProd
+    obteberProductosDePedido,
+    obtenerPedidosSinProd,
+    obtenerPedidoPorId
 }

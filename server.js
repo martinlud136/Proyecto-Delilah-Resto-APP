@@ -236,7 +236,7 @@ server.post('/pedidos',usuarios.validarUser,async(req,res)=>{
     )
     let totalPedido = total.reduce((a,b) => a + b, 0)
     let pedido = await pedidos.crearPedido(formaDePago,productos,id_usuario,totalPedido);
-    let productosDetalle = await pedidos.selecionarProductosdePedido(pedido[0][0].id_pedido)
+    let productosDetalle = await pedidos.obteberProductosDePedido(pedido[0][0].id_pedido)
     pedido[0][0].productos = productosDetalle[0]
     let pedidoConDetalle = pedido[0][0]
     if(pedidoConDetalle !== undefined){
@@ -254,10 +254,31 @@ server.get('/pedidos',usuarios.validarAdmin, async(req,res)=>{
   try{
     const pedidosSinProd = await pedidos.obtenerPedidosSinProd();
     for(let i = 0 ; i<pedidosSinProd[0].length ; i++){
-      const productosDePedido = await pedidos.selecionarProductosdePedido(pedidosSinProd[0][i].id_pedido)
+      const productosDePedido = await pedidos.obteberProductosDePedido(pedidosSinProd[0][i].id_pedido)
       pedidosSinProd[0][i].productos = productosDePedido[0]
     }
       return res.status(200).json(pedidosSinProd[0])
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})
+
+//Obtener pedido por id
+server.get('/pedidos/:id_pedido',usuarios.validarUser, async(req,res)=>{
+  try{
+    const {id_pedido} = req.params
+    const {id_usuario,es_admin} = req.usuario
+    const pedidoSinProd = await pedidos.obtenerPedidoPorId(id_pedido);
+    if(pedidoSinProd[0][0] === undefined){
+      res.status(404).json({msj: 'Pedido inexistente'})
+    }else if(pedidoSinProd[0][0].id_usuario === id_usuario || "true" === es_admin){
+      let productosDetalle = await pedidos.obteberProductosDePedido(id_pedido)
+      pedidoSinProd[0][0].productos = productosDetalle[0]
+      let pedidoConDetalle = pedidoSinProd[0][0]
+         res.status(200).json(pedidoConDetalle);
+    }else{
+      res.status(401).json({msj: 'Usuario no autorizado'})
+    }
   }catch(e){
     res.status(500).json({msj: 'Error del servidor'}).end()
   } 
