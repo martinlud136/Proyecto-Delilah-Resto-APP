@@ -1,6 +1,6 @@
 
 ## DELILA RESTO API
-Proyecto realizado en el modulo final de la carrera DWFS en Acámica
+Proyecto realizado en el modulo final de la carrera DWFS en Acámica.  
 API destinada a la gestión de productos, usuarios y pedidos online 
 ### Repositorio Github:
 https://github.com/martinlud136/Proyecto-Delilah-Resto-APP
