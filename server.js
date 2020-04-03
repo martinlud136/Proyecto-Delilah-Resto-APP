@@ -283,3 +283,36 @@ server.get('/pedidos/:id_pedido',usuarios.validarUser, async(req,res)=>{
     res.status(500).json({msj: 'Error del servidor'}).end()
   } 
 })
+
+// Actualizar un pedido
+server.put('/pedidos/:id_pedido',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const {id_pedido} = req.params
+    const {estado, formaDePago, productos} = req.body
+    const pedidoSinProd = await pedidos.obtenerPedidoPorId(id_pedido);
+    if(pedidoSinProd[0][0] === undefined){
+      res.status(404).json({msj: 'Pedido inexistente'})
+    }
+    let productosArr= [];
+    productos.forEach(e=> productosArr.push([e.id_producto, e.cantidad]))
+    const total = await Promise.all(
+      productosArr.map(async productoCantidadArr=>{
+       let totalProducto = await pedidos.calcularTotalPorProducto(productoCantidadArr)
+        return totalProducto
+      })          
+    )
+    let totalPedido = total.reduce((a,b) => a + b, 0)
+    let pedido = await pedidos.actualizarPedidoPorID(estado,formaDePago,productos,id_pedido,totalPedido);
+    let productosDetalle = await pedidos.obteberProductosDePedido(id_pedido)
+    pedido[0][0].productos = productosDetalle[0]
+    let pedidoConDetalle = pedido[0][0]
+    //hasta aca
+    if(pedidoConDetalle !== undefined){
+      return res.status(200).json(pedidoConDetalle)
+    }else{
+      res.status(400).json({msj: 'Error al ingresar los datos'})
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})

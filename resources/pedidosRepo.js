@@ -83,10 +83,44 @@ async function obtenerPedidoPorId(id_pedido){
     })
 }
 
+async function actualizarPedidoPorID(estado,formaDePago,productos,id_pedido,totalPedido){
+    let productosArr= [];
+    productos.forEach(e=> productosArr.push([e.id_producto, e.cantidad]))
+    let fecha = moment().format('YYYY-MM-DD hh:mm:ss');
+    console.log('la fecha es: ', fecha)
+    return await sequelize.authenticate().then(async()=>{
+        const query = `UPDATE pedidos SET   id_estado = (SELECT id_estado FROM estado WHERE estado = "${estado}"), 
+                                            id_formaPago = (SELECT id_formaPago FROM formapago WHERE formapago = "${formaDePago}"),
+                                            fecha = "${fecha}", 
+                                            total = ${totalPedido}
+                                            WHERE id_pedido = ${id_pedido} `;
+       return await sequelize.query(query, {raw : true});
+    })
+    .then(async pedido=>{
+        productosArr.forEach(e=> e.unshift(id_pedido))
+        return await sequelize.query('INSERT INTO pedidos_productos(id_pedido, id_producto, cantidad) VALUES ? ',
+            {replacements: [productosArr]})       
+    })
+    .then(async respuesta=>{
+        return await sequelize.authenticate().then(async()=>{
+            const query = `SELECT pedidos.id_pedido,  estado.estado, pedidos.fecha, 
+                formapago.formaPago AS formaDePago,
+                pedidos.total, pedidos.id_usuario 
+                FROM pedidos
+                JOIN estado ON estado.id_estado = pedidos.id_estado
+                JOIN formapago ON formapago.id_formaPago = pedidos.id_formaPago
+                WHERE id_pedido = ${id_pedido}`;
+           return await sequelize.query(query, {raw : true});
+        })
+    })
+    ;
+}
+
 module.exports = {
     crearPedido,
     calcularTotalPorProducto,
     obteberProductosDePedido,
     obtenerPedidosSinProd,
-    obtenerPedidoPorId
+    obtenerPedidoPorId,
+    actualizarPedidoPorID
 }
