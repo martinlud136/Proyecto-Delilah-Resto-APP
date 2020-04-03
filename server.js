@@ -306,11 +306,26 @@ server.put('/pedidos/:id_pedido',usuarios.validarAdmin, async(req,res)=>{
     let productosDetalle = await pedidos.obteberProductosDePedido(id_pedido)
     pedido[0][0].productos = productosDetalle[0]
     let pedidoConDetalle = pedido[0][0]
-    //hasta aca
     if(pedidoConDetalle !== undefined){
       return res.status(200).json(pedidoConDetalle)
     }else{
       res.status(400).json({msj: 'Error al ingresar los datos'})
+    }
+  }catch(e){
+    res.status(500).json({msj: 'Error del servidor'}).end()
+  } 
+})
+
+// Eliminar un pedido
+server.delete('/pedidos/:id_pedido',usuarios.validarAdmin, async(req,res)=>{
+  try{
+    const {id_pedido} = req.params
+    const pedidoSelec = await pedidos.eliminarPedidoPorId(id_pedido);
+    console.log('tercero',pedidoSelec)
+    if(pedidoSelec[0].affectedRows === 1){
+      return res.status(200).json({msj: 'Pedido eliminado con exito'})
+    }else{
+      res.status(404).json({msj: 'Pedido inexistente'})
     }
   }catch(e){
     res.status(500).json({msj: 'Error del servidor'}).end()

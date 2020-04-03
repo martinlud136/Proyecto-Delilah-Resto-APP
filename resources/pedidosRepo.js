@@ -116,11 +116,21 @@ async function actualizarPedidoPorID(estado,formaDePago,productos,id_pedido,tota
     ;
 }
 
+async function eliminarPedidoPorId(id_pedido){
+    return await sequelize.query('DELETE  FROM pedidos_productos WHERE pedidos_productos.id_pedido = ?',
+    {replacements: [Number(id_pedido)]})
+                .then(async respuesta =>{
+                    return await sequelize.query('DELETE  FROM pedidos WHERE pedidos.id_pedido = ?',
+                        {replacements: [Number(id_pedido)]})
+                })
+}
+
 module.exports = {
     crearPedido,
     calcularTotalPorProducto,
     obteberProductosDePedido,
     obtenerPedidosSinProd,
     obtenerPedidoPorId,
-    actualizarPedidoPorID
+    actualizarPedidoPorID,
+    eliminarPedidoPorId
 }
