@@ -77,11 +77,11 @@ INSERT INTO estado VALUES("NULL", "enviado");
 INSERT INTO estado VALUES("NULL", "entregado");
 INSERT INTO estado VALUES("NULL", "cancelado");
 
-INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-03-13", 400);
-INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-05-15", 234);
-INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-02-15", 700);
-INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-06-23", 270);
-INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 2, "2020-07-05", 150);
+INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 1, "2020-03-13", 400);
+INSERT INTO pedidos VALUES("NULL" ,3 ,1 , 2, "2020-05-15", 234);
+INSERT INTO pedidos VALUES("NULL" ,4 ,1 , 1, "2020-02-15", 700);
+INSERT INTO pedidos VALUES("NULL" ,4 ,1 , 2, "2020-06-23", 270);
+INSERT INTO pedidos VALUES("NULL" ,5 ,1 , 2, "2020-07-05", 150);
 
 INSERT INTO pedidos_productos VALUES(1, 7, 1);
 INSERT INTO pedidos_productos VALUES(2, 3, 5);

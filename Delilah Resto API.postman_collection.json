@@ -1,0 +1,523 @@
+{
+	"info": {
+		"_postman_id": "bb1612bc-9db2-4517-a51b-12a2417bd9d8",
+		"name": "Delilah Resto API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registrar un nuevo usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"usuario\": \"Hector136\",\r\n  \"nombreApellido\": \"Hector Martin\",\r\n  \"email\": \"hector136@gmail.com\",\r\n  \"direccion\": \"Av. Fuentes 453\",\r\n  \"telefono\": 1129123994,\r\n  \"contrasena\": \"j8jñs_dfS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loguearse en la APP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"daniel@1.com\",\n\t\"contrasena\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener listado de usuarios",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWF0IjoxNTg1NjAzODcwfQ.wrKArkUha-1b6rSqKV6czE9WadW-IYqFCLpmu6Au-nA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener usuario por id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSnVhbl9nIiwiZXNfYWRtaW4iOiJmYWxzZSIsImlhdCI6MTU4NTc0OTY5NX0.8PR6zBCC2MfD8g5ZrzBRLnEmkSNNKBkZe4K8DEBAtnA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/usuarios/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar los datos de un Usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiTWFydGFfaGU0IiwiZXNfYWRtaW4iOiJmYWxzZSIsImlkX3VzdWFyaW8iOjQsImlhdCI6MTU4NTk1MDE1Mn0.XNJBQC3c-TFcjqjIU-0-BwObNYKSnqhk31Cz6zut33o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"usuario\": \"Marta_he4\",\r\n  \"nombreApellido\": \"Marta Sanchez\",\r\n  \"email\": \"marta@4.com\",\r\n  \"direccion\": \"cabildo 555\",\r\n  \"telefono\": 1551863456,\r\n  \"contrasena\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/usuarios/4",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWF0IjoxNTg1NzUwNzYxfQ.aEvb5b2muNkqmhr6ZsjT6Hr5EblFBhgNlVRsj1DTQMo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/usuarios/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWRfdXN1YXJpbyI6MSwiaWF0IjoxNTg1OTQ5MDIxfQ.IUQo4UjwJaOxr_iBP3lD0kenPRlZoc05acxMRhxBLDk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Hamburguesa completa\",\r\n  \"img\": \"https://d1uz88p17r663j.cloudfront.net/original/8689e8d974203563ddcc9bbff91323c2_MG_CHORIZOBURGER_Main-880x660.png\",\r\n  \"precio\": 250\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el listado de productos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSnVhbl9nIiwiZXNfYWRtaW4iOiJmYWxzZSIsImlkX3VzdWFyaW8iOjIsImlhdCI6MTU4NTk0OTI0MX0.IyR9EBn-NdcDrXtjSdyZ8O3p1kVFSMGs88cBr_6Uh38",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZGFuaSIsImFzZGFzZCI6IiIsImlhdCI6MTU4NTQ0NTkzOX0.9Nez7wTEbzctC9JT_2l7ZFeR1ILIcbfTnaGUewlnLik\""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener producto por su id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSnVhbl9nIiwiZXNfYWRtaW4iOiJmYWxzZSIsImlhdCI6MTU4NTU3MjQ5Nn0.UOSvoH0Q1lGEsQvhQpnEecqvtay5DcLzQlMpJF_vq2o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/productos/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"productos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar los datos de un producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWRfdXN1YXJpbyI6MSwiaWF0IjoxNTg1OTUwMzE4fQ.1GgnT2XALMct-6kHpT1Dc6iwrXzRB4zMnWnXiEJfSCM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nombre\": \"Milanesa con papas al horno\",\r\n        \"img\": \"https://cocina-casera.com/wp-content/uploads/2016/11/hamburguesa-queso-receta.jpg\",\r\n        \"precio\": 400\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/productos/5",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"productos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWRfdXN1YXJpbyI6MSwiaWF0IjoxNTg1OTUwMzE4fQ.1GgnT2XALMct-6kHpT1Dc6iwrXzRB4zMnWnXiEJfSCM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/productos/5",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"productos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realizar un pedido",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiQWxmcmVkbzg3NiIsImVzX2FkbWluIjoiZmFsc2UiLCJpZF91c3VhcmlvIjo4LCJpYXQiOjE1ODU5NTEyNDh9.5JWnI-dGI5qkkPypxosfUnXYMcF4AhEJOFwNVre-tXo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"formaDePago\": \"efectivo\",\r\n  \"productos\": [\r\n    {\r\n      \"id_producto\": 2,\r\n      \"cantidad\": 4\r\n    },\r\n    {\r\n      \"id_producto\":3,\r\n      \"cantidad\": 6\r\n    },\r\n    {\r\n      \"id_producto\":1,\r\n      \"cantidad\": 2\r\n    },\r\n    {\r\n      \"id_producto\":6,\r\n      \"cantidad\": 1\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/pedidos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los pedidos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWRfdXN1YXJpbyI6MSwiaWF0IjoxNTg1ODU0NTMyfQ.1hAeaodrsrQ_gCnfpKQZ3slrYNKkoiYPofMZIibA8pw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/pedidos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener pedidos por ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiQWxmcmVkbzg3NiIsImVzX2FkbWluIjoiZmFsc2UiLCJpZF91c3VhcmlvIjo4LCJpYXQiOjE1ODU5NTEyNDh9.5JWnI-dGI5qkkPypxosfUnXYMcF4AhEJOFwNVre-tXo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/pedidos/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar los datos de un pedido",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWRfdXN1YXJpbyI6MSwiaWF0IjoxNTg1ODY4MjI4fQ.ecBBU_QiEgSbfn4oJxIsguh9aSHdekj10V_BKOz66iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"estado\": \"enviado\",\r\n  \"formaDePago\": \"efectivo\",\r\n  \"productos\": [\r\n    {\r\n      \"id_producto\": 2,\r\n      \"cantidad\": 3\r\n    },\r\n    {\r\n      \"id_producto\": 4,\r\n      \"cantidad\": 5\r\n    },\r\n    {\r\n      \"id_producto\": 1,\r\n      \"cantidad\": 2\r\n    },\r\n    {\r\n      \"id_producto\": 6,\r\n      \"cantidad\": 3\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/pedidos/6",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un pedido (admin)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRGFuaWVsMzM0IiwiZXNfYWRtaW4iOiJ0cnVlIiwiaWRfdXN1YXJpbyI6MSwiaWF0IjoxNTg1ODY4MjI4fQ.ecBBU_QiEgSbfn4oJxIsguh9aSHdekj10V_BKOz66iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/pedidos/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

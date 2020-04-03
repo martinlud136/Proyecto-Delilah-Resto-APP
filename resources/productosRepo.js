@@ -31,14 +31,10 @@ async function actualizarProductoPorId(id_producto,nombre,img,precio){
 
 async function eliminarProductoPorId(id_producto){
     return await sequelize.query('SELECT * FROM productos WHERE id_producto = ?',
- {replacements: [Number(id_producto)],type: sequelize.QueryTypes.SELECT})
+ {replacements: [id_producto],type: sequelize.QueryTypes.SELECT})
                 .then(async respuesta =>{
-                    if(respuesta.length > 0){
                     return await sequelize.query('DELETE  FROM productos WHERE id_producto = ?',
-                        {replacements: [Number(id_producto)]})
-                    }else{
-                        return await [];
-                    }
+                        {replacements: [id_producto]})
                 })
 }
    

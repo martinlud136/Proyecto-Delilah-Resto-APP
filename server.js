@@ -85,7 +85,7 @@ server.delete('/productos/:id_producto',usuarios.validarAdmin, async(req,res)=>{
   try{
     const {id_producto} = req.params
     const productoSelec = await productos.eliminarProductoPorId(id_producto);
-    if(productoSelec.length > 0){
+    if(productoSelec[0].affectedRows === 1){
       return res.status(200).json({msj: 'Producto eliminado con exito'})
     }else{
       res.status(404).json({msj: 'Producto inexistente'})
@@ -194,7 +194,6 @@ server.put('/usuarios/:id_usuario',usuarios.validarUser, async(req,res)=>{
       if(validacion){
           try{
             const usuarioActualizado = await usuarios.actualizarUsuario(id_usuario,usuario,nombreApellido,email,direccion,telefono,contrasena);
-            console.log('esto viene actualizado', usuarioActualizado)
             res.status(200).json(usuarioActualizado[0])
           }catch(e){
               res.status(500).json({msj: 'Error del servidor'}).end()
@@ -321,7 +320,6 @@ server.delete('/pedidos/:id_pedido',usuarios.validarAdmin, async(req,res)=>{
   try{
     const {id_pedido} = req.params
     const pedidoSelec = await pedidos.eliminarPedidoPorId(id_pedido);
-    console.log('tercero',pedidoSelec)
     if(pedidoSelec[0].affectedRows === 1){
       return res.status(200).json({msj: 'Pedido eliminado con exito'})
     }else{

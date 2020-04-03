@@ -57,6 +57,42 @@ paths:
           description: Usuario no autorizado
         500:
           description: Error del servidor
+  /usuarios/login:
+    post:
+      tags: 
+        - Usuarios
+      summary: logear un usuario 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: 
+                - email
+                - contrasena
+              properties:
+                email:
+                  type: string
+                  example: "hector234@gmail.com"
+                contrasena:
+                  type: string
+                  example: "3838jskfs"
+      responses:
+        200:
+          description: Usuario logueado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9. eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9. TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+        401:
+          description: email o contraseña incorrectos
+        500:
+          description: Error del servidor
   /usuarios/{id_usuario}:
     get:
       tags: 
@@ -122,42 +158,6 @@ paths:
           description: Usuario no autorizado
         404:
           description: Usuario inexistente
-        500:
-          description: Error del servidor
-  /usuarios/login:
-    post:
-      tags: 
-        - Usuarios
-      summary: logear un usuario 
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: 
-                - email
-                - contrasena
-              properties:
-                email:
-                  type: string
-                  example: "hector234@gmail.com"
-                contrasena:
-                  type: string
-                  example: "3838jskfs"
-      responses:
-        200:
-          description: Usuario logueado correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9. eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9. TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
-        401:
-          description: email o contraseña incorrectos
         500:
           description: Error del servidor
   /productos:
@@ -539,31 +539,17 @@ components:
             - credito
             - efectivo
           example: "efectivo"
-        id_usuario:
-          type: integer
-          example: 3
         productos:
           type: array
           items:
-            type: object
-            properties:
-              id_producto:
-                type: integer
-                format: int64
-                readOnly: true
-                example: 5
-              nombre:
-                type: string
-                example: "Hamburguesa con queso"
-              img: 
-                type: string
-                example: "https://d1uz88p17r663j.cloudfront.net/original/8689e8d974203563ddcc9bbff91323c2_MG_CHORIZOBURGER_Main-880x660.png"
-              precio:
-                type: integer
-                example: 95
-              cantidad:
-                type: integer
-                example: 7
+           type: object
+           properties:
+            id_producto:
+              type: integer
+              example: 7
+            cantidad: 
+              type: integer
+              example: 6
   parameters:
     lim:
       name: lim

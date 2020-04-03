@@ -54,7 +54,6 @@ function validarTel(telefono){
 }
 
 function validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena){
-    console.log('validando')
     if(usuario && nombreApellido && email && validarEmail(email) && direccion && telefono && validarTel(telefono) && contrasena){
         return true
     } return false
@@ -99,7 +98,6 @@ async function actualizarUsuario(id_usuario,usuario,nombreApellido,email,direcci
                 {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
         })
         .then( async usuarioActualizado=>{
-            console.log('usuario actualizado',usuarioActualizado)
             const usuarioConPedidos = Promise.all(
                 usuarioActualizado.map(async fila=>{
                   const pedidosDeUsuario = obtenerPedidosDeUsuario(id_usuario)
@@ -123,7 +121,6 @@ async function obtUsuarioConPedidos(id_usuario){
                     const usuarioConPedidos = await Promise.all(
                         usuario.map(async fila=>{
                           const pedidosDeUsuario = await obtenerPedidosDeUsuario(id_usuario)
-                          console.log('pedidos de usuario',pedidosDeUsuario)
                           let pedidoInt = [];
                           if(pedidosDeUsuario.length>0){
                               for(let i of pedidosDeUsuario){
