@@ -116,6 +116,26 @@ server.post('/usuarios',async(req,res)=>{
   }
 })
 
+//Crear un nuevo usuario administrador
+server.post('/admin',async(req,res)=>{
+  const{usuario,nombreApellido,email,direccion,telefono,contrasena} = req.body
+  let validacion = usuarios.validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena)
+  if(validacion){
+    try{
+      const nuevoUsuario = await usuarios.crearNuevoUsuarioadmin(usuario,nombreApellido,email,direccion,telefono,contrasena);
+      if(nuevoUsuario){
+        return res.status(200).json({msj: 'Usuario creado con exito'})
+      }else{
+        res.status(400).json({msj: 'Error al ingresar los datos'})
+      }
+    }catch(e){
+        res.status(500).json({msj: 'Error del servidor'}).end()
+    }
+  }else{
+    res.status(400).json({msj: 'Error al ingresar los datos de usuario'})
+  }
+})
+
 // login
 server.post('/login', async(req,res)=>{
   const {email, contrasena} = req.body

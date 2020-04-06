@@ -68,6 +68,15 @@ async function crearNuevoUsuario(usuario,nombreApellido,email,direccion,telefono
         })
 }
 
+async function crearNuevoUsuarioadmin(usuario,nombreApellido,email,direccion,telefono,contrasena){
+    return await sequelize.query('INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES(?,?,?,?,?,?,?)',
+        {replacements: [usuario,nombreApellido,email,direccion,telefono,"true", contrasena]})
+        .then(usuario=>{
+            let id_usuario = usuario[0];
+            return id_usuario? true : false;
+        })
+}
+
 async function obtenerPedidosDeUsuario(id_usuario){
     return await sequelize.query('SELECT pedidos.id_pedido FROM pedidos WHERE id_usuario = ?',
         {replacements: [id_usuario], type: sequelize.QueryTypes.SELECT})
@@ -145,6 +154,7 @@ module.exports = {
     validarUser,
     validarAdmin,
     crearNuevoUsuario,
+    crearNuevoUsuarioadmin,
     validarInputUsuario,
     obtenerPedidosDeUsuario,
     obtenerUsuarios,
