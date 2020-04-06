@@ -60,8 +60,8 @@ function validarInputUsuario(usuario,nombreApellido,email,direccion,telefono,con
 }
 
 async function crearNuevoUsuario(usuario,nombreApellido,email,direccion,telefono,contrasena){
-    return await sequelize.query('INSERT INTO usuarios VALUES(?,?,?,?,?,?,?,?)',
-        {replacements: ['NULL',usuario,nombreApellido,email,direccion,telefono,"false", contrasena]})
+    return await sequelize.query('INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES(?,?,?,?,?,?,?)',
+        {replacements: [usuario,nombreApellido,email,direccion,telefono,"false", contrasena]})
         .then(usuario=>{
             let id_usuario = usuario[0];
             return id_usuario? true : false;
