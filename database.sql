@@ -50,38 +50,38 @@ CREATE TABLE pedidos_productos (
   FOREIGN KEY (id_producto) REFERENCES productos (id_producto)
 );
 
-INSERT INTO productos VALUES("NULL" ,'Hamburguesa con queso', 'https://cocina-casera.com/wp-content/uploads/2016/11/hamburguesa-queso-receta.jpg', 245);
-INSERT INTO productos VALUES("NULL" ,'Pancho con papas', 'https://http2.mlstatic.com/super-combo-36-super-panchos-bark-D_NQ_NP_797412-MLA31043077054_062019-Q.jpg', 90);
-INSERT INTO productos VALUES("NULL" ,'Pollo al horno', 'https://www.hola.com/imagenes/cocina/recetas/20200130159403/pollo-asado-en-horno-de-lena/0-779-940/pollo-asado-m.jpg', 450);
-INSERT INTO productos VALUES("NULL" ,'Pizza de muzzarela', 'https://www.tiempodesanjuan.com/u/fotografias/m/2017/10/19/f800x450-421269_472715_0.jpg', 300);
-INSERT INTO productos VALUES("NULL" ,'Empanada de carne', 'https://dam.cocinafacil.com.mx/wp-content/uploads/2017/12/empanada-de-carne-molida.jpg', 60);
-INSERT INTO productos VALUES("NULL" ,'Milanesa con papas fritas', 'https://vinomanos.com/wp-content/uploads/2019/02/milanesas-receta.jpg', 300);
-INSERT INTO productos VALUES("NULL" ,'Rabas', 'https://lh3.googleusercontent.com/proxy/2FkENo8pd_jQ0dobIVjcVSwiUcNJS6AeMEgUS1EOow0aaZSAAewyLvYAFjHOnX74uHHHftPoaUhb38V8bERx4ua-7GsRpOvyhSaO8irYLNUgZadW', 150);
+INSERT INTO productos(nombre,img,precio) VALUES('Hamburguesa con queso', 'https://cocina-casera.com/wp-content/uploads/2016/11/hamburguesa-queso-receta.jpg', 245);
+INSERT INTO productos(nombre,img,precio) VALUES('Pancho con papas', 'https://http2.mlstatic.com/super-combo-36-super-panchos-bark-D_NQ_NP_797412-MLA31043077054_062019-Q.jpg', 90);
+INSERT INTO productos(nombre,img,precio) VALUES('Pollo al horno', 'https://www.hola.com/imagenes/cocina/recetas/20200130159403/pollo-asado-en-horno-de-lena/0-779-940/pollo-asado-m.jpg', 450);
+INSERT INTO productos(nombre,img,precio) VALUES('Pizza de muzzarela', 'https://www.tiempodesanjuan.com/u/fotografias/m/2017/10/19/f800x450-421269_472715_0.jpg', 300);
+INSERT INTO productos(nombre,img,precio) VALUES('Empanada de carne', 'https://dam.cocinafacil.com.mx/wp-content/uploads/2017/12/empanada-de-carne-molida.jpg', 60);
+INSERT INTO productos(nombre,img,precio) VALUES('Milanesa con papas fritas', 'https://vinomanos.com/wp-content/uploads/2019/02/milanesas-receta.jpg', 300);
+INSERT INTO productos(nombre,img,precio) VALUES('Rabas', 'https://lh3.googleusercontent.com/proxy/2FkENo8pd_jQ0dobIVjcVSwiUcNJS6AeMEgUS1EOow0aaZSAAewyLvYAFjHOnX74uHHHftPoaUhb38V8bERx4ua-7GsRpOvyhSaO8irYLNUgZadW', 150);
 
-INSERT INTO usuarios VALUES("NULL", 'Daniel334', 'Daniel Sáez', 'daniel@1.com', 'cabildo 332', 1537484362, "true", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Juan_g', 'Juan Gómez', 'juan@2.com', 'libertador 1200', 1593625356, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Diego22','Diego Flores', 'diego@3.com', 'calle 4 n°453', 1593845623, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Marta_he4 ','Marta Herrera', 'marta@4.com', 'mendoza 800', 1522374353, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'AntonioCarr','Antonio Carretero', 'antonio@5.com', 'neuquen 5726', 1599844635, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'ManuelDom','Manuel Dodmínguez', 'manuel@6.com', 'pasaje 2 332', 1533494264, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'AntonioVeg','Antonio Vega', 'antonio@7.com', 'caseros 500', 1585554434, "false", "1234");
-INSERT INTO usuarios VALUES("NULL", 'Alfredo876','Alfredo Ruiz', 'alfredo@8.com', 'san martin 778', 1533424374, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('Daniel334', 'Daniel Sáez', 'daniel@1.com', 'cabildo 332', 1537484362, "true", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('Juan_g', 'Juan Gómez', 'juan@2.com', 'libertador 1200', 1593625356, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('Diego22','Diego Flores', 'diego@3.com', 'calle 4 n°453', 1593845623, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('Marta_he4 ','Marta Herrera', 'marta@4.com', 'mendoza 800', 1522374353, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('AntonioCarr','Antonio Carretero', 'antonio@5.com', 'neuquen 5726', 1599844635, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('ManuelDom','Manuel Dodmínguez', 'manuel@6.com', 'pasaje 2 332', 1533494264, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('AntonioVeg','Antonio Vega', 'antonio@7.com', 'caseros 500', 1585554434, "false", "1234");
+INSERT INTO usuarios(usuario,nombreApellido,email,direccion,telefono,es_admin,contrasena) VALUES('Alfredo876','Alfredo Ruiz', 'alfredo@8.com', 'san martin 778', 1533424374, "false", "1234");
 
-INSERT INTO formaPago VALUES("NULL", "efectivo");
-INSERT INTO formaPago VALUES("NULL", "credito");
+INSERT INTO formaPago(formaPago) VALUES("efectivo");
+INSERT INTO formaPago(formaPago) VALUES("credito");
 
-INSERT INTO estado VALUES("NULL", "nuevo");
-INSERT INTO estado VALUES("NULL", "confirmado");
-INSERT INTO estado VALUES("NULL", "preparando");
-INSERT INTO estado VALUES("NULL", "enviado");
-INSERT INTO estado VALUES("NULL", "entregado");
-INSERT INTO estado VALUES("NULL", "cancelado");
+INSERT INTO estado(estado) VALUES("nuevo");
+INSERT INTO estado(estado) VALUES("confirmado");
+INSERT INTO estado(estado) VALUES("preparando");
+INSERT INTO estado(estado) VALUES("enviado");
+INSERT INTO estado(estado) VALUES("entregado");
+INSERT INTO estado(estado) VALUES("cancelado");
 
-INSERT INTO pedidos VALUES("NULL" ,2 ,1 , 1, "2020-03-13", 400);
-INSERT INTO pedidos VALUES("NULL" ,3 ,1 , 2, "2020-05-15", 234);
-INSERT INTO pedidos VALUES("NULL" ,4 ,1 , 1, "2020-02-15", 700);
-INSERT INTO pedidos VALUES("NULL" ,4 ,1 , 2, "2020-06-23", 270);
-INSERT INTO pedidos VALUES("NULL" ,5 ,1 , 2, "2020-07-05", 150);
+INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(2 ,1 , 1, "2020-03-13", 400);
+INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(3 ,1 , 2, "2020-05-15", 234);
+INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(4 ,1 , 1, "2020-02-15", 700);
+INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(4 ,1 , 2, "2020-06-23", 270);
+INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(5 ,1 , 2, "2020-07-05", 150);
 
 INSERT INTO pedidos_productos VALUES(1, 7, 1);
 INSERT INTO pedidos_productos VALUES(2, 3, 5);
