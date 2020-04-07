@@ -18,9 +18,8 @@ async function crearPedido(formaDePago,productos,id_usuario,totalPedido){
     productos.forEach(e=> productosArr.push([e.id_producto, e.cantidad]))
     let fecha = moment().format('YYYY-MM-DD hh:mm:ss');
     return await sequelize.authenticate().then(async()=>{
-        const query = `INSERT INTO pedidos (id_pedido, id_usuario, id_estado, id_formaPago, fecha, total)
-        VALUES ("NULL", 
-                ${id_usuario},
+        const query = `INSERT INTO pedidos (id_usuario, id_estado, id_formaPago, fecha, total)
+        VALUES (${id_usuario},
                 (SELECT id_estado FROM estado WHERE estado = "nuevo"),
                 (SELECT id_formaPago FROM formapago WHERE formapago = "${formaDePago}"),
                 "${fecha}",
