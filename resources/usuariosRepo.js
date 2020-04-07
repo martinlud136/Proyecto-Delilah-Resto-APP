@@ -19,8 +19,8 @@ const validarUser = (req,res,next)=> {
 }
 
 const validarAdmin = (req,res,next)=> {
-    const token = req.headers.authorization.split(' ')[1];
     try {
+        const token = req.headers.authorization.split(' ')[1];
         let decode = jwt.verify(token, sign);
         if(decode.es_admin === "true"){
             

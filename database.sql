@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
   direccion VARCHAR(100),
   telefono INT(10) UNSIGNED NOT NULL,
   es_admin VARCHAR(10) NOT NULL,
-  contrasena VARCHAR(10) NOT NULL
+  contrasena VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE productos (
