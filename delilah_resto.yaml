@@ -25,6 +25,7 @@ paths:
       tags: 
         - Usuarios
       summary: Registrar un nuevo usuario
+      description: Se podrá registrar a un cliente como usuario de la aplicación y solo tendrá acceso a los recursos especificados.
       requestBody:
         content:
           application/json:
@@ -42,6 +43,7 @@ paths:
       tags: 
         - Usuarios
       summary: Obtenter el listado de usuarios
+      description: Solo puede tener acceso al listado el Usuario Administrador.
       security: 
         - middelware_autorizacion: []
       responses:
@@ -57,7 +59,25 @@ paths:
           description: Usuario no autorizado
         500:
           description: Error del servidor
-  /usuarios/login:
+  /admin:
+    post:
+      tags: 
+        - Usuarios
+      summary: Registrar un nuevo usuario administrador
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      responses:
+        200: 
+          description: Usuario creado exitosamente
+        400:
+          description: Error al ingresar los datos
+        500: 
+          description: Error de servidor
+  /login:
     post:
       tags: 
         - Usuarios
@@ -100,6 +120,8 @@ paths:
       summary: Obtener un usuario por su id
       security: 
         - middelware_autorizacion: []
+        - autenticacion: []
+      description: El Usuario Administrador puede acceder a los datos de  todos los Usuarios registrados. Un usuario logueado solo puede acceder a los datos de su cuenta.
       parameters: 
         - $ref: '#/components/parameters/id_usuario'
       responses:
@@ -121,7 +143,7 @@ paths:
       summary: Actualizar los datos de un usuario
       security: 
         - autenticacion: []
-      description: Usuario logueado solo puede modificar los datos de su cuenta
+      description: Usuario logueado solo puede modificar los datos de su cuenta.
       parameters: 
         - $ref: '#/components/parameters/id_usuario'
       requestBody:
@@ -149,6 +171,7 @@ paths:
       summary: Eliminar un usuario
       security: 
         - middelware_autorizacion: []
+      description: Solo el Usuario Administrador puede eliminar un Usuario.
       parameters: 
         - $ref: '#/components/parameters/id_usuario'
       responses:
@@ -167,6 +190,7 @@ paths:
       summary: Agregar un producto
       security: 
         - middelware_autorizacion: []
+      description: Solo el Usuario Administrador puede agregar un producto.
       requestBody:
         content:
           application/json:
@@ -187,6 +211,7 @@ paths:
       tags: 
         - Productos
       summary: Obtenter el listado de productos
+      description: Usuario logueado y Administrador pueden obtener el listado de productos.
       security: 
         - autenticacion: []
       responses:
@@ -205,6 +230,7 @@ paths:
       tags:
         - Productos
       summary: Obtenter producto por su id
+      description: Usuario logueado y Administrador pueden obtener el producto por su Id.
       security: 
         - autenticacion: []
       parameters:
@@ -224,6 +250,7 @@ paths:
       tags: 
         - Productos
       summary: Actualizar los datos de un producto
+      description: Solo el Usuario Administrador pueden actualizar los datos de un producto.
       security: 
         - middelware_autorizacion: []
       parameters: 
@@ -250,7 +277,8 @@ paths:
     delete:
       tags: 
         - Productos
-      summary: Eliminar un producto
+      summary: Eliminar un producto.
+      description: Solo el Usuario Administrador puede eliminar un producto.
       security: 
         - middelware_autorizacion: []
       parameters: 
@@ -269,6 +297,7 @@ paths:
       tags: 
         - Pedidos
       summary: Crear un pedido
+      description: Solo puede generar un pedido un Usuario logueado.
       security: 
         - autenticacion: []
       requestBody:
@@ -292,6 +321,7 @@ paths:
       tags: 
         - Pedidos
       summary: Obtener todos los pedidos realizados
+      description: Solo el Usuario Administrador puede obtener el listado de los pedidos realizados.
       security: 
         - middelware_autorizacion: []
       responses:
@@ -312,6 +342,7 @@ paths:
       tags: 
         - Pedidos
       summary: Obtener pedido con su id
+      description: El Usuario Administrador puede acceder a todos los pedidos por su Id. Un Usuario Logueado solo puede acceder a los pedidos que realizó.
       security: 
         - autenticacion: []
       parameters: 
@@ -330,7 +361,8 @@ paths:
     put:
       tags: 
         - Pedidos
-      summary: Actualizar los datos de un pedido
+      summary: Actualizar los datos de un pedido.
+      description: Solo el Usuario Administrador puede actualizar los datos de un pedido.
       security: 
         - middelware_autorizacion: []
       parameters: 
@@ -358,6 +390,7 @@ paths:
       tags: 
         - Pedidos
       summary: Eliminar un pedido
+      description: Solo el Usuario Administrador puede eliminar un pedido.
       security: 
         - middelware_autorizacion: []
       parameters: 

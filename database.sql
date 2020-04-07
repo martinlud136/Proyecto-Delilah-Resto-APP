@@ -84,7 +84,16 @@ INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(4 ,1 ,
 INSERT INTO pedidos(id_usuario,id_estado,id_formaPago,fecha,total) VALUES(5 ,1 , 2, "2020-07-05", 150);
 
 INSERT INTO pedidos_productos VALUES(1, 7, 1);
+INSERT INTO pedidos_productos VALUES(1, 3, 4);
+INSERT INTO pedidos_productos VALUES(1, 5, 2);
+INSERT INTO pedidos_productos VALUES(1, 1, 2);
 INSERT INTO pedidos_productos VALUES(2, 3, 5);
 INSERT INTO pedidos_productos VALUES(3, 2, 2);
+INSERT INTO pedidos_productos VALUES(3, 3, 3);
+INSERT INTO pedidos_productos VALUES(3, 4, 2);
 INSERT INTO pedidos_productos VALUES(4, 4, 3);
 INSERT INTO pedidos_productos VALUES(5, 1, 1);
+INSERT INTO pedidos_productos VALUES(5, 2, 3);
+INSERT INTO pedidos_productos VALUES(5, 3, 5);
+INSERT INTO pedidos_productos VALUES(5, 4, 2);
+INSERT INTO pedidos_productos VALUES(5, 5, 2);
